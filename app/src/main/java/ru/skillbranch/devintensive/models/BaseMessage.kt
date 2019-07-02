@@ -9,7 +9,7 @@ abstract class BaseMessage(val id: String,
                             val date: Date = Date()
 ) {
     abstract fun formatMessage():String
-    companion object abstractFactory{
+    companion object AbstractFactory{
         var lastId = 1
         fun makeMessage(from: User?,chat: Chat,date:Date = Date(),type:String="text",payload:Any?):BaseMessage{
             lastId++
