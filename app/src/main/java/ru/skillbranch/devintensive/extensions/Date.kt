@@ -29,15 +29,47 @@ fun Date.add(value:Int,units: TimeUnits = TimeUnits.SECOND):Date{
 }
 
 //FIXME
-/*
 fun Date.humanizeDiff(date:Date = Date()): String {
+     val check =date.time - time
+     val second = check / 1000L
+     val minute = second / 60
+     val hour =  minute / 60
+     val day = hour / 24
 
-    var time = this.time
+     return  when (second) {
+        in 0..1 ->  "только что"
+        in 2..45 ->  "минуту назад"
+        in 45..75 ->  "минуту назад"
+        in 75..2700 -> {
+            when(minute % 10){
+                in 2..4 -> "$minute минуты назад"
+                else ->  "$minute минут назад"
+            }
+        }
+        in 2700..4500 -> "час назад"
+        in 4500..79200 ->{
+             when(hour){
+                in 2..4 -> "$hour часа назад"
+                else -> "$hour часов назад"
+            }
+        }
+        //22ч-26ч
+        in 79200..93600 -> "день назад"
+        //26ч - 360д
+        in 93600..31104000 ->{
+            when(day % 10){
+                in 2..4 -> "$day дня назад"
+                else -> "$day дней назад"
+            }
+
+        }
+        else -> {
+            return "более года назад"
+        }
+    }
 
 
-
-
-}*/
+}
 
 enum class TimeUnits{
     SECOND,
