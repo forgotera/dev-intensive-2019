@@ -38,7 +38,7 @@ fun Date.humanizeDiff(date:Date = Date()): String {
 
      return  when (second) {
         in 0..1 ->  "только что"
-        in 2..45 ->  "минуту назад"
+        in 2..45 ->  "несколько секунд назад"
         in 45..75 ->  "минуту назад"
         in 75..2700 -> {
             when(minute % 10){
