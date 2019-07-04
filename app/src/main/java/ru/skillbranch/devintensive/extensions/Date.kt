@@ -1,6 +1,7 @@
 package ru.skillbranch.devintensive.extensions
 
 
+import java.lang.Math.abs
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -31,7 +32,7 @@ fun Date.add(value:Int,units: TimeUnits = TimeUnits.SECOND):Date{
 //FIXME
 fun Date.humanizeDiff(date:Date = Date()): String {
      val check =date.time - time
-     val second = check / 1000L
+     val second = abs(check) / 1000L
      val minute = second / 60
      val hour =  minute / 60
      val day = hour / 24
