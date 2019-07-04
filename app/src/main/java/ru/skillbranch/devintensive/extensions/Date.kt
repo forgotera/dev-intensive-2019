@@ -107,7 +107,7 @@ enum class TimeUnits{
     SECOND{
         override fun plural(value:Int):String {
            return when(value %10){
-                1 -> "$value секунда"
+                1 -> "$value секунду"
                 in 2..4 -> "$value секунды"
                else -> "$value секунд"
             }
@@ -116,7 +116,7 @@ enum class TimeUnits{
     MINUTE {
         override fun plural(value: Int):String {
             return when(value %10){
-                1 -> "$value минута"
+                1 -> "$value минуту"
                 in 2..4 -> "$value минуты"
                 else -> "$value минут"
             }
