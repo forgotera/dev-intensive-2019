@@ -29,7 +29,7 @@ fun Date.add(value:Int,units: TimeUnits = TimeUnits.SECOND):Date{
     return this
 }
 
-//FIXME
+
 fun Date.humanizeDiff(date:Date = Date()): String {
      val check =date.time - time
      val second = abs(check) / 1000L
@@ -104,8 +104,42 @@ fun Date.humanizeDiff(date:Date = Date()): String {
 }
 
 enum class TimeUnits{
-    SECOND,
-    MINUTE,
-    HOUR,
-    DAY
+    SECOND{
+        override fun plural(value:Int):String {
+           return when(value %10){
+                1 -> "$value секунда"
+                in 2..4 -> "$value секунды"
+               else -> "$value секунд"
+            }
+        }
+    },
+    MINUTE {
+        override fun plural(value: Int):String {
+            return when(value %10){
+                1 -> "$value минута"
+                in 2..4 -> "$value минуты"
+                else -> "$value минут"
+            }
+        }
+    },
+    HOUR {
+        override fun plural(value: Int):String {
+            return when(value %10){
+                1 -> "$value час"
+                in 2..4 -> "$value часа"
+                else -> "$value часов"
+            }
+        }
+    },
+    DAY {
+        override fun plural(value: Int):String {
+            return when(value %10){
+                1 -> "$value день"
+                in 2..4 -> "$value дня"
+                else -> "$value дней"
+            }
+        }
+    };
+  abstract fun plural(value:Int):String
+
 }
