@@ -7,4 +7,5 @@ fun String.truncate(trunk:Int = 16):String{
     return str.padEnd(str.length+3,'.')
 }
 
-fun String.stripHtml() = this.replace(Regex("<[^<]*?>|&\\d+;"), "").replace(Regex("\\s+"), " ")
+fun String.stripHtml() =
+    this.replace(Regex("<[^<]*?>|&\\d+;"), "").replace(Regex("\\s+"), " ")
