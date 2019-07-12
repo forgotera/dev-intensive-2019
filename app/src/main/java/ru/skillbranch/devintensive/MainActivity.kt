@@ -1,18 +1,24 @@
 package ru.skillbranch.devintensive
 
+import android.app.Activity
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.util.Log
+import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import ru.skillbranch.devintensive.extensio.hideKeyboard
 import ru.skillbranch.devintensive.models.Bender
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+class MainActivity : AppCompatActivity(), View.OnClickListener,TextView.OnEditorActionListener {
 
     lateinit var benderImage: ImageView
     lateinit var textTxt: TextView
@@ -27,6 +33,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         benderImage = iv_bender
         textTxt = tv_text
         messageEt = et_message
+        messageEt.setImeActionLabel("",EditorInfo.IME_ACTION_DONE)
+        messageEt.setOnEditorActionListener(this)
+        messageEt.setSingleLine()
         sendBtn = iv_send
 
 
@@ -59,6 +68,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             textTxt.text = phrase
         }
 
+    }
+    override fun onEditorAction(p0: TextView?, p1: Int, p2: KeyEvent?): Boolean {
+        if(p1 == EditorInfo.IME_ACTION_DONE){
+          this.hideKeyboard()
+        }
+        return true
     }
 
 }
