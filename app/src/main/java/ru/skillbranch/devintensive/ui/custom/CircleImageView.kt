@@ -16,6 +16,7 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.RectF
 import android.util.Log
+import ru.skillbranch.devintensive.R
 
 class CircleImageView @JvmOverloads constructor(
     context: Context,
@@ -283,16 +284,19 @@ class CircleImageView @JvmOverloads constructor(
         setup()
     }
 
-    fun getBorderColor():Int = cv_borderColor
+    fun getBorderColor():Int {
+        Log.d("color12",cv_borderColor.toString())
+        return cv_borderColor
+    }
 
     fun setBorderColor(hex:String){
-        cv_borderColor = Integer.parseInt(hex,16)
+        cv_borderColor = Color.parseColor(hex)
         mBorderPaint.color = cv_borderColor
         invalidate()
     }
 
     fun setBorderColor(@ColorRes colorId: Int){
-        cv_borderColor = colorId
+        cv_borderColor = resources.getColor(colorId)
         mBorderPaint.color = cv_borderColor
         invalidate()
     }
