@@ -15,6 +15,7 @@ import android.graphics.BitmapShader
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.RectF
+import android.util.Log
 
 class CircleImageView @JvmOverloads constructor(
     context: Context,
@@ -54,6 +55,8 @@ class CircleImageView @JvmOverloads constructor(
         if (attrs != null){
             val a = context.obtainStyledAttributes(attrs, ru.skillbranch.devintensive.R.styleable.CircleImageView)
             cv_borderWidth = a.getDimensionPixelSize(ru.skillbranch.devintensive.R.styleable.CircleImageView_cv_borderWidth,   DEFAULT_CV_BORDER_WIDTH)
+            val scale = resources.displayMetrics.density
+            cv_borderWidth = (cv_borderWidth * scale + 0.5f).toInt()
             cv_borderColor = a.getColor(ru.skillbranch.devintensive.R.styleable.CircleImageView_cv_borderColor, DEFAULT_CV_BORDER_COLOR)
             a.recycle()
         }
@@ -170,7 +173,7 @@ class CircleImageView @JvmOverloads constructor(
         }
 
 
-        try {
+        return try {
             val bitmap: Bitmap = if (drawable is ColorDrawable) {
                 Bitmap.createBitmap(COLORDRAWABLE_DIMENSION, COLORDRAWABLE_DIMENSION, BITMAP_CONFIG)
             } else {
@@ -180,10 +183,10 @@ class CircleImageView @JvmOverloads constructor(
             val canvas = Canvas(bitmap)
             drawable.setBounds(0, 0, canvas.width, canvas.height)
             drawable.draw(canvas)
-            return bitmap
+            bitmap
         } catch (e: Exception) {
             e.printStackTrace()
-            return null
+            null
         }
     }
 
@@ -283,7 +286,7 @@ class CircleImageView @JvmOverloads constructor(
     fun getBorderColor():Int = cv_borderColor
 
     fun setBorderColor(hex:String){
-        cv_borderColor = hex.toInt()
+        cv_borderColor = Integer.parseInt(hex,16)
         mBorderPaint.color = cv_borderColor
         invalidate()
     }
